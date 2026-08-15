@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sifat Hasan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF2F5;
+    --paper-2:#E3E9EE;
+    --panel:#FFFFFF;
+    --ink:#101822;
+    --ink-soft:#485765;
+    --ink-faint:#7C8B98;
+    --line:#B7C6CF;
+    --line-soft:#D3DEE4;
+    --accent:#C4602C;
+    --accent-2:#2C6E63;
+    --accent-2-soft:#DCE9E6;
+    --accent-soft:#F3E2D4;
+    --radius:2px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent-2); color:#fff;}
+
+  /* ---------- blueprint grid backdrop ---------- */
+  .grid-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(16,24,34,0.035) 0px, rgba(16,24,34,0.035) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(16,24,34,0.035) 0px, rgba(16,24,34,0.035) 1px, transparent 1px, transparent 32px);
+  }
+
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0; letter-spacing:-0.01em;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    color:var(--accent-2);
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px; background:var(--accent-2);
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(238,242,245,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk'; font-weight:700; font-size:16px;
+    text-decoration:none; color:var(--ink);
+  }
+  .logo-mark{
+    width:30px; height:30px; border:1.5px solid var(--ink); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono'; font-size:11px; font-weight:500;
+    position:relative;
+  }
+  .logo-mark::after{
+    content:""; position:absolute; width:4px; height:4px; border-radius:50%;
+    background:var(--accent); top:2px; right:2px;
+  }
+  nav.links{display:flex; gap:26px; align-items:center;}
+  nav.links a{
+    font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:0.06em;
+    text-decoration:none; color:var(--ink-soft); text-transform:uppercase;
+    padding:6px 2px; border-bottom:1px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  nav.links a:hover, nav.links a.active{color:var(--ink); border-color:var(--accent);}
+  .nav-cv{
+    font-family:'IBM Plex Mono'; font-size:12px; text-decoration:none;
+    border:1px solid var(--ink); color:var(--ink)!important; padding:7px 14px;
+    letter-spacing:0.05em; transition:background .15s ease, color .15s ease;
+  }
+  .nav-cv:hover{background:var(--ink); color:var(--paper)!important;}
+  .nav-toggle{display:none; background:none; border:1px solid var(--ink); width:36px; height:32px; cursor:pointer;}
+  .nav-toggle span{display:block; width:16px; height:1.5px; background:var(--ink); margin:3px auto;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; padding:96px 0 64px; overflow:hidden;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:end;
+  }
+  .hero h1{font-size:56px; line-height:1.03; font-weight:700;}
+  .hero .role{
+    font-family:'IBM Plex Mono'; font-size:15px; color:var(--accent-2);
+    margin-top:16px; letter-spacing:0.01em;
+  }
+  .hero p.lede{
+    max-width:520px; margin-top:20px; color:var(--ink-soft); font-size:16.5px;
+  }
+  .hero-contact{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+  }
+  .chip-link{
+    font-family:'IBM Plex Mono'; font-size:12.5px; text-decoration:none; color:var(--ink);
+    border:1px solid var(--line); padding:7px 12px; display:inline-flex; align-items:center; gap:6px;
+    transition:border-color .15s ease, color .15s ease;
+    background:var(--panel);
+  }
+  .chip-link:hover{border-color:var(--accent-2); color:var(--accent-2);}
+
+  .scope{
+    border:1px solid var(--line); background:var(--panel); position:relative;
+    padding:18px 18px 14px;
+  }
+  .scope-label{
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-faint);
+    display:flex; justify-content:space-between; letter-spacing:0.06em;
+    margin-bottom:10px; text-transform:uppercase;
+  }
+  .scope svg{display:block; width:100%; height:auto;}
+  .scope-caption{
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-faint); margin-top:10px;
+    display:flex; justify-content:space-between;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .trace-path{
+      stroke-dasharray:900;
+      stroke-dashoffset:900;
+      animation:draw 2.6s ease-out forwards;
+    }
+    @keyframes draw{to{stroke-dashoffset:0;}}
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:78px 0; border-top:1px solid var(--line-soft); position:relative;}
+  section:first-of-type{border-top:none;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
+    margin-bottom:40px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:30px;}
+  .section-note{font-family:'IBM Plex Mono'; font-size:12px; color:var(--ink-faint); max-width:280px; text-align:right;}
+
+  /* ---------- research interests ---------- */
+  .interests-row{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft);}
+  .interest-cell{background:var(--panel); padding:22px 16px; text-align:center;}
+  .interest-cell .num{font-family:'IBM Plex Mono'; font-size:11px; color:var(--accent); display:block; margin-bottom:10px;}
+  .interest-cell p{margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.45;}
+
+  /* ---------- projects ---------- */
+  .project-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  .project-card{
+    background:var(--panel); border:1px solid var(--line); display:flex; flex-direction:column;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .project-card:hover{border-color:var(--ink); transform:translateY(-2px);}
+  .project-figure{
+    aspect-ratio:16/10; border-bottom:1px solid var(--line);
+    background:
+      repeating-linear-gradient(0deg, rgba(16,24,34,0.05) 0px, rgba(16,24,34,0.05) 1px, transparent 1px, transparent 18px),
+      repeating-linear-gradient(90deg, rgba(16,24,34,0.05) 0px, rgba(16,24,34,0.05) 1px, transparent 1px, transparent 18px),
+      var(--paper-2);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .project-figure svg{width:60%; height:60%;}
+  .figure-tag{
+    position:absolute; top:8px; left:8px; font-family:'IBM Plex Mono'; font-size:9.5px;
+    color:var(--ink-faint); letter-spacing:0.06em; text-transform:uppercase;
+  }
+  .project-body{padding:20px 22px 22px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .project-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .tag{
+    font-family:'IBM Plex Mono'; font-size:10.5px; padding:3px 8px;
+    background:var(--accent-2-soft); color:var(--accent-2); letter-spacing:0.03em;
+  }
+  .project-body h3{font-size:17.5px; line-height:1.3;}
+  .project-body p{margin:0; font-size:14px; color:var(--ink-soft);}
+  .project-meta{
+    margin-top:auto; padding-top:10px; border-top:1px dashed var(--line);
+    font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--ink-faint);
+    display:flex; justify-content:space-between;
+  }
+  .swap-note{font-size:10px; color:var(--ink-faint); font-style:italic;}
+
+  /* ---------- publications (log sheet) ---------- */
+  .pub-log{border:1px solid var(--line); background:var(--panel);}
+  .pub-row{
+    display:grid; grid-template-columns:70px 1fr auto; gap:18px; align-items:start;
+    padding:20px 22px; border-bottom:1px solid var(--line-soft);
+  }
+  .pub-row:last-child{border-bottom:none;}
+  .pub-id{font-family:'IBM Plex Mono'; font-size:12px; color:var(--accent); padding-top:2px;}
+  .pub-main h3{font-size:16.5px; font-weight:600; margin-bottom:6px; line-height:1.35;}
+  .pub-main .venue{font-size:13.5px; color:var(--ink-soft);}
+  .pub-doi{
+    font-family:'IBM Plex Mono'; font-size:11.5px; text-decoration:none; color:var(--accent-2);
+    border-bottom:1px solid transparent; white-space:nowrap; align-self:center;
+  }
+  .pub-doi:hover{border-color:var(--accent-2);}
+
+  /* ---------- experience timeline ---------- */
+  .timeline{position:relative; padding-left:26px;}
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);
+  }
+  .tl-item{position:relative; padding-bottom:38px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-26px; top:4px; width:9px; height:9px; border-radius:50%;
+    background:var(--paper); border:2px solid var(--accent-2);
+  }
+  .tl-head{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:4px;}
+  .tl-head h3{font-size:17px;}
+  .tl-date{font-family:'IBM Plex Mono'; font-size:12px; color:var(--ink-faint);}
+  .tl-org{font-size:13.5px; color:var(--accent-2); font-family:'IBM Plex Mono'; margin-bottom:10px;}
+  .tl-item ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:14px;}
+  .tl-item li{margin-bottom:5px;}
+
+  /* ---------- education ---------- */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .edu-card{border:1px solid var(--line); background:var(--panel); padding:24px;}
+  .edu-card .tl-date{display:block; margin-bottom:10px;}
+  .edu-card h3{font-size:17px; margin-bottom:4px;}
+  .edu-card .org{font-size:13.5px; color:var(--accent-2); font-family:'IBM Plex Mono'; margin-bottom:14px;}
+  .edu-card ul{margin:0; padding-left:18px; font-size:13.5px; color:var(--ink-soft);}
+  .edu-card li{margin-bottom:6px;}
+
+  /* ---------- skills ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px 40px;}
+  .skill-group h3{
+    font-family:'IBM Plex Mono'; font-size:12.5px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--ink-faint); font-weight:500; margin-bottom:12px;
+  }
+  .skill-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .skill-tag{
+    font-size:13px; padding:6px 12px; border:1px solid var(--line); background:var(--panel);
+  }
+  .cert-list{margin-top:12px; display:flex; flex-direction:column; gap:8px;}
+  .cert-list li{list-style:none; font-size:13.5px; color:var(--ink-soft); padding-left:16px; position:relative;}
+  .cert-list li::before{content:"—"; position:absolute; left:0; color:var(--accent);}
+
+  /* ---------- footer / contact ---------- */
+  footer{
+    background:var(--ink); color:var(--paper); padding:70px 0 40px; margin-top:20px;
+  }
+  footer .wrap{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px;}
+  footer h2{font-size:30px; color:#fff; max-width:480px;}
+  footer p{color:#A9B7C2; max-width:420px; font-size:14.5px;}
+  .footer-links{display:flex; flex-direction:column; gap:12px; align-items:flex-end;}
+  .footer-links a{
+    font-family:'IBM Plex Mono'; font-size:13px; color:#DCE4EA; text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:2px;
+  }
+  .footer-links a:hover{border-color:var(--accent);}
+  .footer-bottom{
+    max-width:var(--max); margin:50px auto 0; padding:20px 28px 0; border-top:1px solid rgba(255,255,255,0.12);
+    font-family:'IBM Plex Mono'; font-size:11px; color:#7A8994; display:flex; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:38px;}
+    .interests-row{grid-template-columns:repeat(2,1fr);}
+    .project-grid{grid-template-columns:1fr;}
+    .edu-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    nav.links{
+      position:fixed; top:61px; left:0; right:0; background:var(--paper);
+      flex-direction:column; align-items:flex-start; padding:20px 28px; gap:16px;
+      border-bottom:1px solid var(--line); transform:translateY(-130%); transition:transform .2s ease;
+    }
+    nav.links.open{transform:translateY(0);}
+    .nav-toggle{display:block;}
+    .pub-row{grid-template-columns:1fr; gap:8px;}
+    .pub-id{padding-top:0;}
+    footer .wrap{flex-direction:column; align-items:flex-start;}
+    .footer-links{align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="logo-mark">SH</span> Sifat Hasan</a>
+    <nav class="links" id="navLinks">
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="Sifat_Hasan_CV.docx" class="nav-cv">Download CV ↓</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none; padding-top:70px;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Log:00 — Overview</div>
+        <h1>Sifat Hasan</h1>
+        <div class="role">Aerospace &amp; Mechanical Engineer — Active Noise Control · Signal Processing · Applied ML</div>
+        <p class="lede">I build the testing frameworks and control systems that make active noise cancellation, sensor networks, and applied ML models work in the real world — currently seeking PhD positions and engineering roles in acoustics, controls, and applied research.</p>
+        <div class="hero-contact">
+          <a class="chip-link" href="mailto:sifat.hasan@torontomu.ca">✉ Email</a>
+          <a class="chip-link" href="#">◆ LinkedIn</a>
+          <a class="chip-link" href="#">◆ Google Scholar</a>
+          <a class="chip-link" href="#">◆ GitHub</a>
+          <a class="chip-link" href="#">◆ Toronto, ON</a>
+        </div>
+      </div>
+      <div class="scope">
+        <div class="scope-label"><span>CH1 · ACOUSTIC RESIDUAL</span><span>fs 48kHz</span></div>
+        <svg viewBox="0 0 400 140" fill="none">
+          <line x1="0" y1="70" x2="400" y2="70" stroke="#B7C6CF" stroke-width="1"/>
+          <path class="trace-path" d="M0,70 C20,30 40,110 60,60 C80,20 100,120 120,70 C140,40 150,40 170,70 C185,85 195,55 210,68 C225,78 235,69 250,70 C270,70.5 285,70.2 400,70" stroke="#2C6E63" stroke-width="1.6" stroke-linecap="round"/>
+          <path class="trace-path" d="M0,70 C20,55 40,85 60,70 C80,58 100,82 120,70 C160,70 400,70 400,70" stroke="#C4602C" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>
+        </svg>
+        <div class="scope-caption"><span>input signal</span><span>ANC residual (dashed)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH INTERESTS -->
+  <section id="research">
+    <div class="wrap">
+      <div class="eyebrow">Log:01 — Research Interests</div>
+      <div class="interests-row">
+        <div class="interest-cell"><span class="num">01</span><p>Active noise &amp; vibration control</p></div>
+        <div class="interest-cell"><span class="num">02</span><p>Acoustic signal processing</p></div>
+        <div class="interest-cell"><span class="num">03</span><p>Adaptive &amp; optimal control</p></div>
+        <div class="interest-cell"><span class="num">04</span><p>Sensor integration &amp; DAQ systems</p></div>
+        <div class="interest-cell"><span class="num">05</span><p>Applied ML for engineering systems</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Log:02 — Selected Projects</div>
+          <h2>Projects</h2>
+        </div>
+        <div class="section-note">Figures below are placeholder schematics — swap in real photos, rig shots, or plots when you deploy this.</div>
+      </div>
+
+      <div class="project-grid">
+
+        <!-- Project 1: ANC Gimbal -->
+        <div class="project-card">
+          <div class="project-figure">
+            <span class="figure-tag">fig. 01 / photo needed</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="60" r="34" stroke="#101822" stroke-width="1.4"/>
+              <circle cx="60" cy="60" r="20" stroke="#C4602C" stroke-width="1.4"/>
+              <line x1="60" y1="14" x2="60" y2="26" stroke="#101822" stroke-width="1.4"/>
+              <line x1="60" y1="94" x2="60" y2="106" stroke="#101822" stroke-width="1.4"/>
+              <line x1="14" y1="60" x2="26" y2="60" stroke="#101822" stroke-width="1.4"/>
+              <line x1="94" y1="60" x2="106" y2="60" stroke="#101822" stroke-width="1.4"/>
+              <path d="M60 60 L78 44" stroke="#2C6E63" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="78" cy="44" r="2.4" fill="#2C6E63"/>
+            </svg>
+          </div>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Controls</span><span class="tag">DAQ</span><span class="tag">Python</span></div>
+            <h3>Aircraft Cabin ANC — Actuator Gimbal System</h3>
+            <p>MEng thesis project: automated testing methods for an active noise cancellation system using a gimbal-mounted actuator, with a Python-based DAQ and control framework for repeatable acoustic experiments.</p>
+            <div class="project-meta"><span>MEng Thesis · TMU</span><span>2022 – 2023</span></div>
+          </div>
+        </div>
+
+        <!-- Project 2: Adaptive Zone ANC -->
+        <div class="project-card">
+          <div class="project-figure">
+            <span class="figure-tag">fig. 02 / photo needed</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="45" cy="60" r="10" stroke="#101822" stroke-width="1.4"/>
+              <circle cx="75" cy="60" r="10" stroke="#C4602C" stroke-width="1.4" stroke-dasharray="2 2"/>
+              <path d="M45 40 C45 20 75 20 75 40" stroke="#2C6E63" stroke-width="1.4" fill="none"/>
+              <path d="M20 60 L30 60 M90 60 L100 60" stroke="#101822" stroke-width="1.2"/>
+              <path d="M55 90 Q60 96 65 90" stroke="#101822" stroke-width="1.2" fill="none"/>
+            </svg>
+          </div>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Signal Processing</span><span class="tag">Published</span></div>
+            <h3>Adaptive Zone-Based ANC for a Moving Target</h3>
+            <p>A zone-based adaptive active noise control approach that tracks a moving quiet zone in real time, published at the Acoustical Society of America meeting.</p>
+            <div class="project-meta"><span>JASA · Vol. 155</span><span>2024</span></div>
+          </div>
+        </div>
+
+        <!-- Project 3: GAN Satellite -->
+        <div class="project-card">
+          <div class="project-figure">
+            <span class="figure-tag">fig. 03 / photo needed</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="16" y="26" width="34" height="34" stroke="#101822" stroke-width="1.4"/>
+              <line x1="16" y1="43" x2="50" y2="43" stroke="#101822" stroke-width="0.8"/>
+              <line x1="33" y1="26" x2="33" y2="60" stroke="#101822" stroke-width="0.8"/>
+              <path d="M54 43 L70 43" stroke="#C4602C" stroke-width="1.4" marker-end="url(#arrow)"/>
+              <rect x="74" y="26" width="34" height="34" stroke="#2C6E63" stroke-width="1.4"/>
+              <line x1="91" y1="26" x2="91" y2="60" stroke="#2C6E63" stroke-width="0.8"/>
+              <line x1="74" y1="43" x2="108" y2="43" stroke="#2C6E63" stroke-width="0.8"/>
+              <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#C4602C"/></marker></defs>
+            </svg>
+          </div>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Machine Learning</span><span class="tag">Computer Vision</span></div>
+            <h3>Satellite Image Translation via Conditional GAN</h3>
+            <p>Trained and evaluated a Pix2Pix conditional GAN for satellite-to-feature-map translation on the UC Berkeley map dataset (2,194 image pairs) to study model performance and limitations.</p>
+            <div class="project-meta"><span>Independent Project</span><span>2021</span></div>
+          </div>
+        </div>
+
+        <!-- Project 4: IoT -->
+        <div class="project-card">
+          <div class="project-figure">
+            <span class="figure-tag">fig. 04 / photo needed</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="30" y="40" width="60" height="40" rx="2" stroke="#101822" stroke-width="1.4"/>
+              <circle cx="45" cy="55" r="3" fill="#C4602C"/>
+              <circle cx="60" cy="65" r="3" fill="#101822"/>
+              <circle cx="75" cy="55" r="3" fill="#101822"/>
+              <line x1="45" y1="55" x2="60" y2="65" stroke="#101822" stroke-width="1"/>
+              <line x1="60" y1="65" x2="75" y2="55" stroke="#101822" stroke-width="1"/>
+              <path d="M60 32 Q60 20 60 40" stroke="#2C6E63" stroke-width="1.2"/>
+              <path d="M50 24 A14 14 0 0 1 70 24" stroke="#2C6E63" stroke-width="1.2" fill="none"/>
+              <path d="M44 30 A22 22 0 0 1 76 30" stroke="#2C6E63" stroke-width="1" fill="none" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Embedded</span><span class="tag">Published</span></div>
+            <h3>Integration of Mechanical Systems with IoT</h3>
+            <p>Explored connecting mechanical subsystems to IoT sensing and control layers for remote monitoring and actuation.</p>
+            <div class="project-meta"><span>IARJSET Vol. 8</span><span>2021</span></div>
+          </div>
+        </div>
+
+        <!-- Project 5: Additive Manufacturing -->
+        <div class="project-card">
+          <div class="project-figure">
+            <span class="figure-tag">fig. 05 / photo needed</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="35" y="70" width="50" height="8" stroke="#101822" stroke-width="1.2"/>
+              <rect x="42" y="58" width="36" height="12" stroke="#101822" stroke-width="1" opacity="0.8"/>
+              <rect x="48" y="46" width="24" height="12" stroke="#101822" stroke-width="1" opacity="0.6"/>
+              <rect x="53" y="36" width="14" height="10" stroke="#C4602C" stroke-width="1.2"/>
+              <line x1="60" y1="20" x2="60" y2="36" stroke="#2C6E63" stroke-width="1.4"/>
+              <path d="M52 20 L68 20" stroke="#2C6E63" stroke-width="1.4"/>
+            </svg>
+          </div>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Manufacturing</span><span class="tag">Published</span></div>
+            <h3>Additive Manufacturing Using Metal 3D Printers</h3>
+            <p>Study of metal additive manufacturing processes, covering print parameters, material behaviour, and quality considerations.</p>
+            <div class="project-meta"><span>IARJSET Vol. 8</span><span>2021</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="wrap">
+      <div class="eyebrow">Log:03 — Publications</div>
+      <h2 style="margin-bottom:32px;">Publications</h2>
+      <div class="pub-log">
+        <div class="pub-row">
+          <div class="pub-id">P.01</div>
+          <div class="pub-main">
+            <h3>Adaptive Zone-Based Active Noise Control for a Moving Target</h3>
+            <div class="venue">The Journal of the Acoustical Society of America, vol. 155, issue 3_Supplement, pp. A197</div>
+          </div>
+          <a class="pub-doi" href="https://doi.org/10.1121/10.0027287">doi.org/10.1121/10.0027287 ↗</a>
+        </div>
+        <div class="pub-row">
+          <div class="pub-id">P.02</div>
+          <div class="pub-main">
+            <h3>Aircraft Cabin Active Noise Cancellation Mechanism Using an Actuator Gimbal System</h3>
+            <div class="venue">Master's Thesis, Toronto Metropolitan University</div>
+          </div>
+          <a class="pub-doi" href="https://doi.org/10.32920/26862367.v1">doi.org/10.32920/26862367.v1 ↗</a>
+        </div>
+        <div class="pub-row">
+          <div class="pub-id">P.03</div>
+          <div class="pub-main">
+            <h3>Integration of Mechanical Systems with IoT</h3>
+            <div class="venue">IARJSET, vol. 8, issue 1</div>
+          </div>
+          <a class="pub-doi" href="https://doi.org/10.17148/IARJSET.2021.8108">doi.org/10.17148/IARJSET.2021.8108 ↗</a>
+        </div>
+        <div class="pub-row">
+          <div class="pub-id">P.04</div>
+          <div class="pub-main">
+            <h3>Additive Manufacturing Using Metal 3D Printers</h3>
+            <div class="venue">IARJSET, vol. 8, issue 2</div>
+          </div>
+          <a class="pub-doi" href="https://doi.org/10.17148/IARJSET.2021.8217">doi.org/10.17148/IARJSET.2021.8217 ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="eyebrow">Log:04 — Experience</div>
+      <h2 style="margin-bottom:36px;">Experience</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-head"><h3>Research Assistant (Full-time)</h3><span class="tl-date mono">Apr 2022 – May 2025</span></div>
+          <div class="tl-org">Toronto Metropolitan University Aerospace Engineering Centre (RAEC)</div>
+          <ul>
+            <li>Designed automated testing methods for aircraft active noise cancellation (ANC) systems, improving data collection efficiency and repeatability</li>
+            <li>Built and maintained Python-based testing frameworks for data acquisition, control, and analysis</li>
+            <li>Configured sensors, DAQ systems, and integrated hardware/software setups for acoustic experiments</li>
+            <li>Collaborated with research teams and industry partners to troubleshoot and optimize system performance</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-head"><h3>Technology Improvement Project Coordinator</h3><span class="tl-date mono">Sep 2023 – May 2026</span></div>
+          <div class="tl-org">Mississauga Community Legal Services</div>
+          <ul>
+            <li>Led IT infrastructure setup for office relocation, including workstation deployment and network configuration</li>
+            <li>Administered Microsoft Dynamics CRM and managed user accounts and system configurations</li>
+            <li>Developed automation scripts and improved workflows, increasing efficiency and reducing manual effort</li>
+            <li>Rebuilt and maintained the organization's website, improving functionality and usability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="eyebrow">Log:05 — Education</div>
+      <h2 style="margin-bottom:32px;">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <span class="tl-date mono">Jan 2022 – May 2023</span>
+          <h3>Master of Engineering (MEng), Aerospace Engineering</h3>
+          <div class="org">Toronto Metropolitan University</div>
+          <ul><li>Best Demo Award — IEEE International Symposium on Personal, Indoor and Mobile Radio Communications (2023)</li></ul>
+        </div>
+        <div class="edu-card">
+          <span class="tl-date mono">Sep 2017 – Jun 2021</span>
+          <h3>Bachelor of Engineering (BEng), Mechanical Engineering</h3>
+          <div class="org">China University of Mining and Technology</div>
+          <ul>
+            <li>'A' Class Full Tuition Fee Scholarship (2018 – 2021)</li>
+            <li>1st Prize, Structural Design Competition, Jiangsu Province (2019)</li>
+            <li>Organizing Committee &amp; Graphics Designer, Hult Prize at CUMT (2020)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="eyebrow">Log:06 — Skills &amp; Certifications</div>
+      <h2 style="margin-bottom:36px;">Skills &amp; Certifications</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Programming</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span><span class="skill-tag">C++</span><span class="skill-tag">Arduino</span><span class="skill-tag">Automation Scripting</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Engineering &amp; Analysis</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">SolidWorks</span><span class="skill-tag">AutoCAD</span><span class="skill-tag">Ansys</span><span class="skill-tag">FEM</span><span class="skill-tag">DAQ Systems</span><span class="skill-tag">Signal Processing</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Systems &amp; IT</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Networking</span><span class="skill-tag">CRM Administration</span><span class="skill-tag">Access Control</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Platforms</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Microsoft 365</span><span class="skill-tag">Google Workspace</span><span class="skill-tag">Adobe Creative Suite</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group" style="margin-top:30px;">
+        <h3>Certifications</h3>
+        <ul class="cert-list">
+          <li>IBM Applied AI Professional Certificate — Coursera</li>
+          <li>Control of Mobile Robots — Georgia Tech (Coursera)</li>
+          <li>Python Programming &amp; Data Handling — University of Michigan (Coursera)</li>
+          <li>Computer Vision with OpenCV — Coursera Project Network</li>
+          <li>Google Digital Marketing Certification</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--accent);">Log:07 — Contact</div>
+      <h2>Open to PhD positions and engineering roles in acoustics, controls, and applied ML.</h2>
+      <p style="margin-top:14px;">Based in Toronto, ON. Reach out for full CV, transcripts, or a conversation about research fit.</p>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:sifat.hasan@torontomu.ca">sifat.hasan@torontomu.ca</a>
+      <a href="#">LinkedIn ↗</a>
+      <a href="#">Google Scholar ↗</a>
+      <a href="#">GitHub ↗</a>
+      <a href="Sifat_Hasan_CV.docx">Download CV ↓</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Sifat Hasan</span>
+    <span>Built as a working portfolio mockup — replace placeholder figures with real photos before publishing.</span>
+  </div>
+</footer>
+
+<script>
+  // mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // active section highlight
+  const sections = document.querySelectorAll('main section[id]');
+  const navAnchors = document.querySelectorAll('nav.links a[href^="#"]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector('nav.links a[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
