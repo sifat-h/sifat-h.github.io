@@ -223,7 +223,7 @@
   }
   .pub-doi:hover{border-color:var(--accent-2);}
 
-  /* ---------- experience timeline ---------- */
+  /* ---------- experience timeline ---------- 
   .timeline{position:relative; padding-left:26px;}
   .timeline::before{
     content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);
@@ -240,6 +240,22 @@
   .tl-org{font-size:13.5px; color:var(--accent-2); font-family:'IBM Plex Mono'; margin-bottom:10px;}
   .tl-item ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:14px;}
   .tl-item li{margin-bottom:5px;}
+  */
+
+  /* ---------- added css for logo ---------- */
+  .tl-logo{
+    position:absolute; left:-52px; top:-2px;
+    width:34px; height:34px; border:1px solid var(--line);
+    background:var(--panel); display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .tl-logo img{width:76%; height:76%; object-fit:contain;}
+  .tl-logo .fallback{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-soft);}
+  .timeline{padding-left:70px;}
+  .timeline::before{left:49px;}
+  .tl-item::before{left:-26px;}
+  .tl-org a{color:var(--accent-2); text-decoration:none; border-bottom:1px solid transparent;}
+  .tl-org a:hover{border-color:var(--accent-2);}
 
   /* ---------- education ---------- */
   .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
@@ -526,8 +542,12 @@
       <h2 style="margin-bottom:36px;">Experience</h2>
       <div class="timeline">
         <div class="tl-item">
+          <div class="tl-logo">
+            <img src="image/logos/tmu.png" alt="Toronto Metropolitan University logo"
+              onerror="this.outerHTML='<span class=&quot;fallback&quot;>TMU</span>'">
+          </div>
           <div class="tl-head"><h3>Research Assistant (Full-time)</h3><span class="tl-date mono">Apr 2022 – May 2025</span></div>
-          <div class="tl-org">Toronto Metropolitan University Aerospace Engineering Centre (RAEC)</div>
+          <div class="tl-org"><a href="https://www.torontomu.ca/" target="_blank" rel="noopener">Toronto Metropolitan University Aerospace Engineering Centre (RAEC)</a></div>
           <ul>
             <li>Designed automated testing methods for aircraft active noise cancellation (ANC) systems, improving data collection efficiency and repeatability</li>
             <li>Built and maintained Python-based testing frameworks for data acquisition, control, and analysis</li>
@@ -536,8 +556,12 @@
           </ul>
         </div>
         <div class="tl-item">
+          <div class="tl-logo">
+            <img src="image/logos/mcls.png" alt="MCLS logo"
+              onerror="this.outerHTML='<span class=&quot;fallback&quot;>MCLS</span>'">
+          </div>
           <div class="tl-head"><h3>Technology Improvement Project Coordinator</h3><span class="tl-date mono">Sep 2023 – May 2026</span></div>
-          <div class="tl-org">Mississauga Community Legal Services</div>
+          <div class="tl-org"><a href="https://www.mississaugalegalclinic.ca/" target="_blank" rel="noopener">Mississauga Community Legal Services</a></div>
           <ul>
             <li>Led IT infrastructure setup for office relocation, including workstation deployment and network configuration</li>
             <li>Administered Microsoft Dynamics CRM and managed user accounts and system configurations</li>
