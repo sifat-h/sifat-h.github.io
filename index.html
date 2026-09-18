@@ -244,15 +244,24 @@
 
   /* ---------- added css for logo ---------- */
   .tl-logo{
-    position:absolute; left:-52px; top:-2px;
-    width:34px; height:34px; border:1px solid var(--line);
-    background:var(--panel); display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
+    position:absolute; left:-62px; top:-2px;
+    width:48px; height:36px;
+    border:1px solid var(--line); background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; padding:4px;
   }
-  .tl-logo img{width:76%; height:76%; object-fit:contain;}
+  .timeline{padding-left:80px;}
+  .timeline::before{left:59px;}
+  .tl-logo img{
+    width:auto; height:auto;
+    max-width:84%; max-height:84%;
+    object-fit:contain; flex:none;
+  }
   .tl-logo .fallback{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-soft);}
+  /* previous code
   .timeline{padding-left:70px;}
-  .timeline::before{left:49px;}
+  .timeline::before{left:49px;} 
+  */
   .tl-org a{color:var(--accent-2); text-decoration:none; border-bottom:1px solid transparent;}
   .tl-org a:hover{border-color:var(--accent-2);}
 
@@ -542,7 +551,7 @@
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-logo">
-            <img src="image/logos/tmu.png" alt="Toronto Metropolitan University logo"
+            <img src="image/logos/tmu.svg" alt="Toronto Metropolitan University logo"
               onerror="this.outerHTML='<span class=&quot;fallback&quot;>TMU</span>'">
           </div>
           <div class="tl-head"><h3>Research Assistant (Full-time)</h3><span class="tl-date mono">Apr 2022 – May 2025</span></div>
